@@ -1,0 +1,882 @@
+/* style.css - Estilos Magníficos (v8 Concept) - Garagem Inteligente */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ===== Variáveis CSS Globais ===== */
+:root {
+    /* Paleta Principal (Tons escuros com acentos vibrantes) */
+    --bg-gradient-start: #1a1a2e;
+    --bg-gradient-mid: #16213e;
+    --bg-gradient-end: #0f3460;
+    --primary-accent: #e94560; /* Um rosa/vermelho vibrante */
+    --secondary-accent: #00f5d4; /* Um ciano/verde neon */
+    --glass-bg: rgba(255, 255, 255, 0.1); /* Cor base do vidro */
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: rgba(0, 0, 0, 0.2);
+    --text-primary: #f0f2f5; /* Texto claro principal */
+    --text-secondary: #a9a9c4; /* Texto mais suave */
+    --text-highlight: var(--secondary-accent);
+    --text-on-accent: #ffffff;
+
+    /* Cores de Estado */
+    --success-glow: rgba(0, 245, 212, 0.5); /* Glow verde/ciano */
+    --danger-glow: rgba(233, 69, 96, 0.6); /* Glow rosa/vermelho */
+    --warning-glow: rgba(255, 193, 7, 0.5); /* Glow amarelo */
+    --info-glow: rgba(0, 123, 255, 0.5); /* Glow azul */
+
+    /* Configurações de Estilo */
+    --font-family: 'Poppins', sans-serif;
+    --base-font-size: 16px;
+    --border-radius-glass: 15px; /* Bordas mais arredondadas */
+    --border-radius-button: 10px;
+    --backdrop-blur: 10px; /* Intensidade do desfoque */
+    --transition-smooth: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Curva de transição suave */
+    --glow-shadow-light: 0 0 15px rgba(255, 255, 255, 0.1);
+    --glow-shadow-accent: 0 0 20px var(--primary-accent);
+}
+
+/* ===== Estilos Gerais e Fundo ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--base-font-size);
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+    background-attachment: fixed; /* Mantém gradiente fixo no scroll */
+    padding: 30px;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Prevenir scroll horizontal */
+}
+
+/* ===== Container Principal (Painel de Vidro) ===== */
+#container {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 40px 50px;
+    border-radius: var(--border-radius-glass);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow), var(--glow-shadow-light);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur)); /* Suporte Safari */
+    position: relative; /* Para elementos posicionados dentro */
+    overflow: hidden; /* Garante que o conteúdo não vaze */
+}
+/* Efeito de brilho sutil na borda */
+#container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit;
+    padding: 1px; /* Espessura do brilho */
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none; /* Não interfere com cliques */
+}
+
+
+/* ===== Tipografia ===== */
+h1, h2, h3, h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.8em;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Sombra leve para legibilidade */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+}
+h1 i { color: var(--primary-accent); margin-right: 15px; }
+
+h2 {
+    border-bottom: 2px solid var(--primary-accent);
+    padding-bottom: 0.5em;
+    margin-top: 0;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+h2 i { color: var(--secondary-accent); font-size: 0.9em; }
+
+h3 {
+    font-size: 1.5em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary); /* Cor mais suave para H3 */
+}
+h3 i { color: var(--primary-accent); font-size: 0.9em;}
+
+h4 {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    margin-bottom: 1em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 3px solid var(--secondary-accent); /* Detalhe visual */
+    padding-left: 10px;
+}
+h4 i { color: var(--secondary-accent); font-size: 0.9em;}
+
+p { margin-bottom: 1.2em; color: var(--text-secondary); }
+a { color: var(--secondary-accent); text-decoration: none; transition: color var(--transition-smooth); }
+a:hover { color: var(--primary-accent); }
+
+/* ===== Abas de Navegação (Estilo Painel de Controle) ===== */
+#abas-navegacao {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--glass-border);
+    position: relative;
+}
+#abas-navegacao::after { /* Linha decorativa sutil */
+    content: '';
+    position: absolute;
+    bottom: -1px; /* Alinha com a borda */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-accent), transparent);
+    opacity: 0.5;
+}
+
+
+#abas-navegacao button {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 15px 30px;
+    margin: 0 8px;
+    font-size: 1.1em;
+    font-weight: 500;
+    border-radius: 0; /* Abas retas */
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+    position: relative; /* Para pseudo-elementos */
+    overflow: hidden; /* Para efeitos de hover */
+}
+#abas-navegacao button::before { /* Efeito de preenchimento no hover */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--secondary-accent);
+    transition: all var(--transition-smooth);
+    transform: translateX(-50%);
+}
+
+#abas-navegacao button:hover {
+    color: var(--text-primary);
+}
+#abas-navegacao button:hover::before {
+    width: 100%;
+}
+
+#abas-navegacao button.aba-ativa {
+    color: var(--text-primary);
+    border-bottom-color: var(--primary-accent);
+    font-weight: 600;
+    text-shadow: 0 0 8px var(--primary-accent);
+}
+#abas-navegacao button.aba-ativa::before {
+    width: 0; /* Remove efeito hover da aba ativa */
+}
+#abas-navegacao button i { margin-right: 8px; }
+
+/* ===== Seções Principais (Animação Transversal) ===== */
+.secao-principal {
+    display: none;
+    opacity: 0;
+    transform: translateX(20px); /* Começa ligeiramente à direita */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.secao-principal.ativa {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ===== Menu Dinâmico de Veículos (Botões Flutuantes) ===== */
+#menu-veiculos {
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px dashed var(--glass-border);
+    text-align: center;
+    min-height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+#menu-veiculos button {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    font-size: 0.95em;
+    border-radius: var(--border-radius-button);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-smooth);
+    backdrop-filter: blur(5px); /* Leve blur nos botões também */
+     -webkit-backdrop-filter: blur(5px);
+}
+
+#menu-veiculos button:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+    color: var(--text-primary);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#menu-veiculos button.veiculo-ativo {
+    background: var(--primary-accent);
+    color: var(--text-on-accent);
+    font-weight: 600;
+    box-shadow: 0 0 15px 5px var(--danger-glow), 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px) scale(1.05);
+    border-color: var(--primary-accent);
+}
+#menu-veiculos button.veiculo-ativo i { color: var(--text-on-accent); } /* Garante cor do ícone */
+
+#menu-veiculos span.loading-placeholder,
+#menu-veiculos span.empty-placeholder {
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 15px;
+    display: inline-block;
+}
+#menu-veiculos span i { margin-left: 8px; }
+
+/* ===== Área ÚNICA de Exibição do Veículo ===== */
+#veiculo-display-area {
+    border: none;
+    padding: 0;
+    margin-bottom: 40px;
+    background-color: transparent;
+    min-height: 500px; /* Aumenta altura mínima */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#veiculo-display-area .placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 80px 40px;
+    font-size: 1.4em;
+    font-weight: 300;
+    max-width: 400px;
+    border: 2px dashed var(--glass-border);
+    border-radius: var(--border-radius-glass);
+    background: rgba(0,0,0,0.1);
+}
+#veiculo-display-area .placeholder i {
+    display: block;
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    opacity: 0.6;
+    color: var(--secondary-accent);
+}
+
+.veiculo-renderizado {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(250px, 0.8fr) 1fr;
+    gap: 40px;
+    animation: slideInUp 0.6s var(--transition-smooth) forwards;
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 950px) {
+    .veiculo-renderizado {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+/* Colunas e Cards Internos (Todos com efeito glass) */
+.coluna-imagem-info,
+.coluna-acoes-manutencao {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.glass-card { /* Classe base para todos os cards internos */
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 30px;
+    border-radius: var(--border-radius-glass);
+    box-shadow: 0 6px 20px var(--glass-shadow);
+    backdrop-filter: blur(var(--backdrop-blur));
+     -webkit-backdrop-filter: blur(var(--backdrop-blur));
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), var(--glow-shadow-light);
+}
+
+/* Título do veículo dentro da coluna */
+.coluna-imagem-info .veiculo-titulo {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 0;
+    font-size: 1.8em;
+    letter-spacing: 0.5px;
+}
+
+.veiculo-imagem {
+    max-width: 100%;
+    width: auto; /* Deixa a largura automática */
+    max-height: 220px; /* Aumenta altura máxima */
+    height: auto;
+    display: block;
+    border-radius: var(--border-radius-button); /* Borda mais suave */
+    margin: 0 auto 25px auto; /* Centraliza */
+    border: none; /* Remove borda, o card já tem */
+    object-fit: contain; /* Garante visibilidade completa */
+    background-color: transparent; /* Fundo transparente */
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3)); /* Sombra na imagem */
+}
+
+.informacoes-veiculo {
+    width: 100%;
+    text-align: center;
+}
+.informacoes-veiculo p {
+    margin: 12px 0;
+    font-size: 1.05em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+}
+.info-label {
+    font-weight: 500;
+    color: var(--text-primary); /* Label mais destacado */
+}
+.veiculo-status { font-weight: 600; }
+.status-ligado { color: var(--secondary-accent); text-shadow: 0 0 8px var(--success-glow); }
+.status-ligado::before { content: "\f0eb"; /* Ícone Lâmpada ON (FontAwesome) */ font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; }
+.status-desligado { color: var(--primary-accent); text-shadow: 0 0 8px var(--danger-glow); }
+.status-desligado::before { content: "\f0eb"; /* Ícone Lâmpada OFF (FontAwesome) */ font-family: 'Font Awesome 6 Free'; font-weight: 400; /* Regular */ margin-right: 8px; opacity: 0.7; }
+
+/* Velocímetro Futurista */
+.velocimetro {
+    width: 180px;
+    height: 90px;
+    border: none;
+    position: relative;
+    margin: 25px auto 20px auto;
+    background: conic-gradient(
+        from -90deg at 50% 100%,
+        var(--secondary-accent) 0deg 30deg, /* Verde/Ciano */
+        #ffc107 30deg 100deg, /* Amarelo */
+        var(--primary-accent) 100deg 180deg, /* Vermelho */
+        rgba(255, 255, 255, 0.05) 180deg /* Fundo sutil */
+    );
+    border-radius: 90px 90px 0 0;
+    box-shadow: inset 0 -8px 15px rgba(0,0,0,0.3);
+    overflow: hidden; /* Esconde overflow do ponteiro */
+}
+.velocimetro::before { /* Centro brilhante */
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.5);
+}
+.ponteiro {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    width: 4px;
+    height: 80px;
+    background: linear-gradient(to top, #ccc, #fff);
+    transform-origin: bottom center;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Animação elástica */
+    transform: translateX(-50%) rotate(-90deg);
+    border-radius: 3px 3px 0 0;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+/* Barra de Aceleração com Gradiente Neon */
+.barra-aceleracao {
+    width: 100%;
+    height: 12px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    margin-top: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+.barra-progresso {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--secondary-accent), var(--primary-accent));
+    border-radius: 6px;
+    transition: width 0.5s ease-out;
+    box-shadow: 0 0 10px var(--secondary-accent), 0 0 5px var(--secondary-accent) inset;
+}
+
+/* Botão Excluir (com mais destaque) */
+.btn-excluir-veiculo {
+    background-color: transparent;
+    color: var(--primary-accent);
+    border: 1px solid var(--primary-accent);
+    padding: 10px 20px;
+    margin-top: 25px;
+    border-radius: var(--border-radius-button);
+    transition: all var(--transition-smooth);
+    box-shadow: 0 0 10px rgba(233, 69, 96, 0.3); /* Glow sutil */
+}
+.btn-excluir-veiculo:hover {
+    background-color: var(--primary-accent);
+    color: var(--text-on-accent);
+    box-shadow: 0 0 15px 5px var(--danger-glow);
+    transform: scale(1.05);
+}
+
+/* Cards de Edição, Ações, Agendamento, Histórico - Herdam .glass-card */
+.edicao-veiculo h3 i { color: #a855f7; } /* Roxo para Edição */
+.acoes-veiculo h3 i { color: #3b82f6; } /* Azul para Ações */
+.agendamento-section h4 i { color: #f59e0b; } /* Laranja para Agendamento */
+.historico-section h4 i { color: #6b7280; } /* Cinza para Histórico */
+
+.acoes-veiculo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* Espaço entre botões */
+}
+.acoes-veiculo h3 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.acoes-veiculo button { /* Estilo base para botões de ação */
+    flex-grow: 1;
+    min-width: 120px;
+}
+
+/* === Seção Adicionar Veículo === */
+#add-veiculo-section { /* Usando glass-card */
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 40px;
+    border-radius: var(--border-radius-glass);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
+}
+#add-veiculo-section h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: var(--text-primary);
+}
+#add-veiculo-section h2 i { color: var(--secondary-accent); }
+
+/* === Notificações e Alertas (Estilo Glass) === */
+#notificacoes-area,
+#cnh-alertas-area {
+    display: none;
+    margin: 0 auto 30px auto;
+    padding: 20px 25px;
+    border-radius: var(--border-radius-glass);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    box-shadow: 0 6px 20px var(--glass-shadow);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
+    max-width: 95%;
+}
+#notificacoes-area h4,
+#cnh-alertas-area h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#notificacoes-area { /* Alertas de manutenção */
+    border-left: 5px solid var(--info-glow); /* Borda lateral colorida */
+}
+#notificacoes-area h4 { color: #3b82f6; } /* Azul info */
+#notificacoes-area h4 i { color: #3b82f6; }
+
+
+#cnh-alertas-area { /* Alertas de CNH */
+     border-left: 5px solid var(--danger-glow);
+}
+#cnh-alertas-area h4 { color: var(--primary-accent); }
+#cnh-alertas-area h4 i { color: var(--primary-accent); }
+
+
+#notificacoes-area ul,
+#cnh-alertas-area ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#notificacoes-area li,
+#cnh-alertas-area li {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--glass-border);
+    font-size: 0.95em;
+    color: var(--text-secondary);
+}
+#notificacoes-area li:last-child,
+#cnh-alertas-area li:last-child { border-bottom: none; }
+#notificacoes-area li strong,
+#cnh-alertas-area li strong { color: var(--text-primary); font-weight: 500; }
+
+/* ===== Formulários (Estilo Neon/Futurista) ===== */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    text-transform: uppercase; /* Deixa labels mais estilizadas */
+    letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-button);
+    background-color: rgba(0, 0, 0, 0.2); /* Fundo escuro translúcido */
+    color: var(--text-primary);
+    font-size: 1em;
+    font-family: inherit;
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+    outline: none;
+}
+input[type="file"] {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+/* Estilo do placeholder */
+input::placeholder, textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--secondary-accent);
+    box-shadow: 0 0 10px 2px var(--success-glow); /* Glow no focus */
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a9a9c4' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 16px 12px;
+    padding-right: 50px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px 20px; /* Mais espaço */
+}
+
+/* Grupo Input + Botão (Ex: Carga Caminhão) */
+.input-button-group {
+    display: flex;
+    align-items: flex-end; /* Alinha pela base */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.input-button-group > div { flex-grow: 1; }
+.input-button-group input[type="number"] { margin-bottom: 0; }
+.input-button-group button { margin-bottom: 0; flex-shrink: 0; }
+
+/* Preview de Imagem (Mais integrado) */
+.imagem-preview-container {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    text-align: center;
+    min-height: 130px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px dashed var(--glass-border);
+    border-radius: var(--border-radius-button);
+    padding: 15px;
+    display: flex; /* Centraliza verticalmente */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.imagem-preview {
+    max-width: 200px;
+    max-height: 110px;
+    display: none;
+    margin-bottom: 10px; /* Espaço antes do texto */
+    border-radius: var(--border-radius-sm); /* 4px */
+    object-fit: contain;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4));
+}
+.imagem-preview[src]:not([src="#"]) { display: block; }
+.imagem-preview-container small {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    display: block;
+}
+.imagem-preview-container small.warning-text { /* Texto de aviso sobre tamanho */
+    color: #ffc107; /* Amarelo aviso */
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+
+/* ===== Botões (Estilo Neon/Premium) ===== */
+button {
+    padding: 14px 28px; /* Mais padding */
+    margin: 8px; /* Aumenta margem */
+    border: 1px solid transparent; /* Borda inicial transparente */
+    border-radius: var(--border-radius-button);
+    background: linear-gradient(145deg, var(--primary-accent), #a33d51); /* Gradiente base */
+    color: var(--text-on-accent);
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    font-size: 1em;
+    font-weight: 600; /* Mais forte */
+    letter-spacing: 0.5px; /* Espaçamento leve */
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espaço ícone/texto */
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), inset 0 -2px 5px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden; /* Para efeitos */
+}
+button::before { /* Efeito de brilho sutil */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%; /* Começa fora */
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: left 0.6s ease;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--danger-glow); /* Glow no hover */
+    border-color: rgba(255, 255, 255, 0.3); /* Borda sutil no hover */
+}
+button:hover::before {
+    left: 120%; /* Move o brilho */
+}
+
+button:active {
+    transform: translateY(-1px) scale(1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+button:disabled {
+    background: linear-gradient(145deg, #5a5a70, #404050); /* Cinza escuro */
+    color: var(--text-secondary);
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+}
+button:disabled:hover::before { left: -80%; } /* Desativa brilho hover */
+
+/* Botões com cores específicas */
+button[data-acao="ligar"],
+.salvar-veiculo-btn,
+#adicionar-veiculo-btn {
+    background: linear-gradient(145deg, var(--secondary-accent), #00a896); /* Gradiente Verde/Ciano */
+}
+button[data-acao="ligar"]:hover,
+.salvar-veiculo-btn:hover,
+#adicionar-veiculo-btn:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--success-glow);
+}
+
+button[data-acao="ativarTurbo"],
+button[data-acao="carregar"] {
+    background: linear-gradient(145deg, #ffc107, #e0a800); /* Gradiente Amarelo */
+    color: #333; /* Texto escuro */
+    text-shadow: none;
+}
+button[data-acao="ativarTurbo"]:hover,
+button[data-acao="carregar"]:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--warning-glow);
+    color: #000;
+}
+
+.agendar-manutencao-btn {
+    background: linear-gradient(145deg, #a855f7, #7e22ce); /* Gradiente Roxo */
+}
+.agendar-manutencao-btn:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(168, 85, 247, 0.5); /* Glow Roxo */
+}
+
+.btn-limpar-historico {
+    background: linear-gradient(145deg, #f97316, #c2410c); /* Gradiente Laranja */
+    font-size: 0.8em;
+    padding: 6px 12px;
+    margin: 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-limpar-historico:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(249, 115, 22, 0.5); /* Glow Laranja */
+    transform: scale(1.05);
+}
+.btn-limpar-historico i { font-size: 0.9em; margin-right: 5px; }
+
+/* ===== Histórico e Agendamentos Futuros ===== */
+.historico-section ul,
+#agendamentos-futuros-lista ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+    max-height: 280px; /* Maior altura */
+    overflow-y: auto;
+    padding-right: 15px; /* Espaço para scrollbar */
+}
+/* Scrollbar Estilizada (Webkit) */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 4px; border: 1px solid rgba(0,0,0,0.3); }
+::-webkit-scrollbar-thumb:hover { background: var(--secondary-accent); }
+
+.historico-section li,
+#agendamentos-futuros-lista li {
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--glass-border);
+    padding: 15px 18px;
+    margin-bottom: 12px;
+    border-radius: var(--border-radius-button);
+    font-size: 0.95em;
+    transition: background-color var(--transition-smooth), transform var(--transition-smooth);
+    color: var(--text-secondary);
+}
+.historico-section li:hover,
+#agendamentos-futuros-lista li:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+    transform: translateX(5px); /* Leve deslocamento no hover */
+}
+.historico-section li strong,
+#agendamentos-futuros-lista li strong {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Seção Global Agendamentos Futuros */
+#agendamentos-futuros { /* Também usa glass-card */
+    margin-top: 40px;
+    border-left: 5px solid var(--secondary-accent); /* Destaque extra */
+}
+#agendamentos-futuros h3 { color: var(--text-primary); }
+#agendamentos-futuros h3 i { color: var(--secondary-accent); }
+#agendamentos-futuros-lista p { /* Placeholder */
+    color: var(--text-secondary);
+    font-style: italic;
+}
+#agendamentos-futuros-lista li {
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo ligeiramente mais claro */
+}
+#agendamentos-futuros-lista li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ====== Ajustes Finais e Responsividade ====== */
+@media (max-width: 768px) {
+    body { padding: 15px; }
+    #container { padding: 30px 20px; margin: 20px auto; }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.6em; }
+    #abas-navegacao button { padding: 12px 15px; font-size: 1em; }
+    .form-grid { grid-template-columns: 1fr; }
+    .veiculo-renderizado { gap: 25px; }
+    .glass-card { padding: 20px; }
+    .velocimetro { width: 150px; height: 75px; border-radius: 75px 75px 0 0;}
+    .ponteiro { height: 65px; }
+    button { padding: 12px 20px; font-size: 0.95em; }
+    .input-button-group { flex-direction: column; align-items: stretch; gap: 10px; }
+    .input-button-group button { margin-bottom: 0; width: 100%; }
+    :root { --backdrop-blur: 8px; } /* Reduz blur em telas menores */
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.4em; }
+    #abas-navegacao { display: flex; flex-direction: column; gap: 10px; }
+    #abas-navegacao button { width: 100%; margin: 0; }
+    .coluna-imagem-info .veiculo-titulo { font-size: 1.5em; }
+    .velocimetro { width: 120px; height: 60px; border-radius: 60px 60px 0 0;}
+    .ponteiro { height: 50px; }
+}
